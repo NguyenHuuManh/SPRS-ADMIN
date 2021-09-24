@@ -4,12 +4,14 @@ import * as types from 'redux/types';
 
 const initialState = {
   auth: {
+    data: {},
     isLogin: false,
     error: null,
   },
 };
 
 export const authReducer = (state = initialState, action: ReducerInterface) => {
+  console.log('action', action);
   return produce(state, (draftState) => {
     switch (action.type) {
       case types.REQUEST_LOGIN:
@@ -17,6 +19,7 @@ export const authReducer = (state = initialState, action: ReducerInterface) => {
         break;
 
       case types.REQUEST_LOGIN_SUCCESS:
+        draftState.auth.data = action.payload;
         draftState.auth.isLogin = true;
         break;
 
@@ -24,7 +27,6 @@ export const authReducer = (state = initialState, action: ReducerInterface) => {
         draftState.auth.isLogin = false;
         draftState.auth.error = action.error;
         break;
-
       default:
         break;
     }
